@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  cypress:
+    image: test-cypress  # La imagen que construiste previamente con tu Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./dockerReports:/app/cypress/reports
+    working_dir: /app
+    command: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports

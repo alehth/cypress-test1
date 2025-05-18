@@ -1,0 +1,17 @@
+{
+  "name": "realworld-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run": "npx cypress run --headless --record --key 2f568639-278f-4257-85aa-1dc5a55de7ad --parallel",
+    "cy:run_spec": "npx cypress run --spec 'cypress/e2e/firstTest.spec.js' --browser chrome --record --key 2f568639-278f-4257-85aa-1dc5a55de7ad",
+    "cy:run_browser": "npm run cy:run_spec -- --browser electron --group Electron --ci-build-id 7 & npm run cy:run_spec -- --browser chrome --group Chrome --ci-build-id 8"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^14.3.2"
+  }
+}
