@@ -1,6 +1,9 @@
 pipeline{
     agent any
     tools {nodejs "node"}
+    environment {
+    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+  }
 
     stages{
         stage('cypress parallel tests'){
