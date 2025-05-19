@@ -2,7 +2,7 @@ pipeline{
     agent any
     tools {nodejs "Node24"}
     environment {
-    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+    CYPRESS_RECORD_KEY = credentials('cypress-record-key')
   }
 
     stages{
