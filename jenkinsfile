@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Run Cypress in parallel') {
             parallel {
-                stage('Run on Master') {
-                    agent { label 'master' }
+                stage('Run on principal') {
+                    agent { label 'principal' }
                     steps {
                         checkout scm
                         sh 'npm ci'
@@ -13,8 +13,8 @@ pipeline {
                     }
                 }
 
-                stage('Run on Mac') {
-                    agent { label 'Mac' }
+                stage('Run on Nodo-Test1') {
+                    agent { label 'Nodo-Test1' }
                     steps {
                         checkout scm
                         sh 'npm ci'
