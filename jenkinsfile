@@ -10,7 +10,7 @@ pipeline{
             parallel{
                 stage('tester A'){
                     steps{
-                        sh "npm run cy:run"
+                        bat "npm run cy:run"
                     }
                 }
 
@@ -19,7 +19,7 @@ pipeline{
                         label "Nodo-Test1"
                     }
                     steps{
-                        sh "npm run cy:run"
+                        bat "npm run cy:run"
                     }
                 }
 
