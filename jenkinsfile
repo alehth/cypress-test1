@@ -2,23 +2,25 @@ pipeline {
     agent none
 
     stages {
-        stage('Run Cypress in parallel') {
+        stage('Correr pruebas en paralelo') {
             parallel {
-                stage('Run on principal') {
-                    agent { label 'principal' }
+                stage('Correr en build-in') {
+                    agent { label 'build-in' }
+
                     steps {
-                        checkout scm
-                        sh 'npm ci'
-                        sh 'npx cypress run --record --parallel --key $CYPRESS_RECORD_KEY'
+                        echo 'Ejecutando en el nodo build-in (principal)'
+                        bat 'npm install'
+                        bat 'npx cypress run --browser chrome --headless'
                     }
                 }
 
-                stage('Run on Nodo-Test1') {
+                stage('Correr en Nodo-Test1') {
                     agent { label 'Nodo-Test1' }
+
                     steps {
-                        checkout scm
-                        sh 'npm ci'
-                        sh 'npx cypress run --record --parallel --key $CYPRESS_RECORD_KEY'
+                        echo 'Ejecutando en el nodo Nodo-Test1'
+                        bat 'npm install'
+                        bat 'npx cypress run --browser chrome --headless'
                     }
                 }
             }
