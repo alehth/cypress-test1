@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    tools {nodejs "node"}
+    tools {nodejs "Node24"}
     environment {
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
   }
