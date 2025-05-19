@@ -1,25 +1,26 @@
-pipeline{
-    agent any
-    tools {nodejs "node"}
+pipeline {
+    agent none
 
-    stages{
-        stage('cypress parallel tests'){
-            parallel{
-                stage('tester A'){
-                    steps{
-                        sh "npm run cy:run"
+    stages {
+        stage('Run Cypress in parallel') {
+            parallel {
+                stage('Run on Master') {
+                    agent { label 'master' }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx cypress run --record --parallel --key $CYPRESS_RECORD_KEY'
                     }
                 }
 
-                stage('tester B'){
-                    agent{
-                        label "Nodo-Test1"
-                    }
-                    steps{
-                        sh "npm run cy:run"
+                stage('Run on Mac') {
+                    agent { label 'Mac' }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx cypress run --record --parallel --key $CYPRESS_RECORD_KEY'
                     }
                 }
-
             }
         }
     }
