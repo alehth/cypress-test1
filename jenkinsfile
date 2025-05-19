@@ -1,28 +1,25 @@
-pipeline {
-    agent none
+pipeline{
+    agent any
+    tools {nodejs "node"}
 
-    stages {
-        stage('Correr pruebas en paralelo') {
-            parallel {
-                stage('Correr en build-in') {
-                    agent { label 'build-in' }
-
-                    steps {
-                        echo 'Ejecutando en el nodo build-in (principal)'
-                        bat 'npm install'
-                        bat 'npx cypress run --browser chrome --headless'
+    stages{
+        stage('cypress parallel tests'){
+            parallel{
+                stage('tester A'){
+                    steps{
+                        sh "npm run cy:run"
                     }
                 }
 
-                stage('Correr en Nodo-Test1') {
-                    agent { label 'Nodo-Test1' }
-
-                    steps {
-                        echo 'Ejecutando en el nodo Nodo-Test1'
-                        bat 'npm install'
-                        bat 'npx cypress run --browser chrome --headless'
+                stage('tester B'){
+                    agent{
+                        label "Nodo-Test1"
+                    }
+                    steps{
+                        sh "npm run cy:run"
                     }
                 }
+
             }
         }
     }
